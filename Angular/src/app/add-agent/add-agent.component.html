@@ -1,0 +1,60 @@
+<h3>Create Agent</h3>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4" >
+    <div [hidden]="submitted" style="width: 400px;">
+      <form [formGroup]="agentsaveform" #saveagent (ngSubmit)="saveAgent(saveAgent)">
+          <div class="form-group">
+              <label for="name">Agent Name</label>
+              <input type="text" class="form-control"  formControlName="agent_name" data-toggle="tooltip" 
+                 data-placement="right" title="Enter Agent Name" >
+              <div class="alert alert-danger" *ngIf = "(AgentName.touched) && (AgentName.invalid)" 
+                style="margin-top: 5px;">
+                  <span *ngIf="AgentName.errors.required">Agent Name is Required</span>
+                    <span *ngIf = "AgentName.errors.minlength"> 
+                        MinLength Error 
+                    </span>                   
+                </div>
+          </div>
+  
+          <div class="form-group">
+              <label for="name">Agent Balance</label>
+              <input type="text" class="form-control" formControlName="agent_balance" 
+                data-toggle="tooltip" data-placement="right" title="Enter Agent Balance">
+                <div class="alert alert-danger" *ngIf = "(AgentBalance.touched) && (AgentBalance.invalid)" 
+                style="margin-top: 5px;">
+                  <span *ngIf="AgentBalance.errors.required">Agent Balance is Required</span>
+                 
+                </div>
+          </div>
+  
+          <div class="form-group">
+              <label for="branch">Agent Branch</label>
+                <select class="form-control" formControlName="agent_branch" data-toggle="tooltip" 
+                      data-placement="right" title="Select Agent Branch">
+                    <option value="null">--Select Branch--</option>
+                  <option value="B-Tech">PNB</option>
+                  <option value="BCA">ICICI</option>
+                  <option value="MCA">IDFC</option>
+                  <option value="M-Tech">HDFC</option>
+                </select>
+          </div>
+  
+          <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+  </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+      <div [hidden]="!submitted">
+         <h4>Agent Added SuccessFully!</h4>
+         <button (click)="addAgentForm()" class='btn btn-primary'>Add More Agent</button>
+      </div>      
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+
+

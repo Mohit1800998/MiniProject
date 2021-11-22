@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+      <h1 style="text-align: center">Agents</h1><br>
+      <div style="text-align: center;">
+        <ul class="navbar-nav" >
+          <li class="nav-item ">
+            <a routerLink="add-agent" class="nav-link" class="btn btn-primary active" role="button" >Add Agent</a>
+          </li>&nbsp;         
+        </ul>
+        </div>
+      <div class="row" [hidden]="!deleteMessage">
+           
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                        <div class="alert alert-info alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Agent Data Deleted</strong>
+                        </div>
+                </div>
+                <div class="col-sm-4"></div>
+        </div>           
+    </div>
+
+  
+  <div class="panel-body">
+      <table  class="table table-hover table-sm" datatable [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger"  >
+          <thead class="thead-light">
+              <tr>
+                  <th>Agent Name</th>
+                  <th>Agent Balance</th>
+                  <th>Agent Branch</th>
+                  <th>Action</th>
+                  
+              </tr>
+          </thead>
+          <tbody>
+               <tr *ngFor="let agent of agents ">
+                  <td>{{agent.agent_name}}</td>
+                  <td>{{agent.agent_balance}}</td>
+                  <td>{{agent.agent_branch}}</td>
+                  <td><button (click)="deleteAgent(agent.agent_id)" class='btn btn-primary'><i class="fa fa-futboll-0">Delete</i></button>&nbsp;
+                    <button   (click)="updateAgent(agent.agent_id)" class='btn btn-info'
+                    data-toggle="modal" data-target="#myModal">Update</button>
+                  </td>
+                </tr> 
+          </tbody><br>
+      </table>
+  </div>
+</div> 
+
+<div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+                <form [formGroup]="agentupdateform" #updstu (ngSubmit)="updateStu(updstu)">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" style="text-align: center">Update Agent</h4>
+              
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body" *ngFor="let agent of agentlist " >
+                <div [hidden]="isupdated">
+
+                    <input type="hidden" class="form-control"  formControlName="agent_id" [(ngModel)]="agent.agent_id">
+                            <div class="form-group">
+                                <label for="name">Agent Name</label>
+                                <input type="text" class="form-control"  formControlName="agent_name" [(ngModel)]="agent.agent_name"  >
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="name">Agent Balance</label>
+                                <input type="text" class="form-control" formControlName="agent_balance" [(ngModel)]="agent.agent_balance">
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="name">Agent Branch</label>
+                                  <select class="form-control"      formControlName="agent_branch" required>                                   
+                                    <option value="B-Tech"   [selected]="'B-Tech' == agent.agent_branch">B-Tech</option>
+                                    <option value="BCA" [selected]="'BCA' == agent.agent_branch">BCA</option>
+                                    <option value="MCA" [selected]="'MCA' == agent.agent_branch" >MCA</option>
+                                    <option value="M-Tech"   [selected]="'M-Tech' == agent.agent_branch">M-Tech</option>
+                                  </select>                               
+                            </div>                   
+                  </div>  
+                  <div [hidden]="!isupdated">
+                      <h4>Client Agent Detail Updated!</h4>
+                  </div>        
+                    
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer" >
+              <button type="submit" class="btn btn-success" [hidden]="isupdated">Update</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+            </div>
+            
+        </form>
+          </div>
+        </div>
+      </div>
